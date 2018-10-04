@@ -1,0 +1,114 @@
+<ol>
+  <div class="title pt-3 py-2">
+  <li>
+    a. Spend few minutes thinking about the different kinds of meetings or video conferences in English you have to attend.
+  </li>
+</div>
+<v-list subheader>
+<div id="divider">
+    <v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+    <h1 class="subheading">Who do you have meetings with: colleagues, clients, management?
+</h1>
+</v-card>
+<div id="divider">
+    <v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+    <h1 class="subheading"> Are the meetings large or small, long or short, formal or informal, inside or outside your company?</h1>
+</v-card>
+<div id="divider">
+    <v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+    <h1 class="subheading"> Where and how do you meet: at your desk, in a special room. by phone or video conference?</h1>
+</v-card>
+</v-list>
+
+<div class="title pt-3 py-2">
+b. In what role do you have to attend meetings in English?
+</div>
+<v-list subheader>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading">chairperson
+</h1>
+</v-card>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading"> presenter
+</h1>
+</v-card>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading"> participant
+</h1>
+</v-card>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading">other (e.g. note-taker)
+</h1>
+</v-card>
+</v-list>
+<div class="title pt-3 py-2">
+<li>
+What do you find most difficult when attending meetings held in English?
+</li>
+</div>
+<v-list subheader>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading">Making your point clearly
+
+</h1>
+</v-card>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading">Understanding other participants
+</h1>
+</v-card>
+<div id="divider">
+<v-divider></v-divider>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading">Other aspects of the meeting
+</h1>
+</v-card>
+</v-list>
+
+<div class="title pt-3 py-2">
+<li>
+What skills and qualities do you think you need to participate effectively in meetings?
+</li>
+</div>
+<v-card color="" class="px-3 my-2" height="auto" flat>
+<h1 class="subheading font-weight-thin font-italic">Listening to other people's viewpoints, good time management
+</h1>
+</v-card>
+
+<!--
+<div class="headline pt-5 py-2 ">
+<li>
+Each unit of this book focuses on a different area. Look through the unit summaries at the beginning of
+Units 1-6 and think about which areas you need to develop. Developing your awareness of what you already
+do well and what you could do better will allow you to focus on improving those skills you really need.
+Note down the units you intend to work through in order of priority for
+you - in terms of the area in which you feel you are weakest, or which is currently of most importance to you.
+</li>
+</div> -->
+
+
+</ol>

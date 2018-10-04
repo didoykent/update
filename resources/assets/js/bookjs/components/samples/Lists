@@ -1,0 +1,66 @@
+
+  <ol class="a">
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat>
+      <li>
+        <h1 class="subheading px-2"> Jane Wang has met all the participants before.
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat>  <li>
+        <h1 class="subheading px-2"> The meeting will last for three days.
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2"> The meeting will influence the company's future strategy.
+
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2"> Jane Wang hopes everyone will agree.
+
+
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2"> The meeting will consider the company's results for the last 12 months.
+
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2">  Jane Wang wants the participants to share positive and negative points.
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2"> Jane Wang introduces all the participants.
+</h1></li>
+    </v-card>
+    <div id="divider">
+        <v-divider></v-divider>
+    </div>
+    <v-card color="" class="px-3 my-2" height="auto" flat><li>
+        <h1 class="subheading px-2"> Juanita Garcia works in Mexico City.
+</h1></li>
+    </v-card>
+  </ol>
+
+</v-list>
