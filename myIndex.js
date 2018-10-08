@@ -58,10 +58,13 @@ redisClient.subscribe('message');
 
 redisClient.on('message', function(channel, message){
 
-var addCharacters = "[" + message + "]"
+if(message.trim()){
+
+io.emit('evaluation',  message);
+
+}
 
 
-io.emit('write', {EVALUATION: JSON.parse(addCharacters)});
 
 console.log(message)
 });
@@ -248,7 +251,7 @@ socket.on('typingStatus', function(latestmessage){
 socket.on('latestMessage', function(latestmessage){
 
 
-
+io.sockets.emit('chat', {name: latestmessage.currentUserName, message: latestmessage.message, idx: latestmessage.friend['idx']})
 
 
 
