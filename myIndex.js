@@ -3,7 +3,7 @@ var app = require('express');
 var server = require('http').Server(app);
 
 var io = require('socket.io')(server);
-
+io.set('heartbeat timeout', 1000);
 
 var redis = require('redis');
 
@@ -58,7 +58,7 @@ redisClient.subscribe('message');
 
 redisClient.on('message', function(channel, message){
 
-if(message.trim()){
+if(message.trim() && channel === 'message'){
 
 io.emit('evaluation',  message);
 
@@ -116,8 +116,20 @@ if(connectedUsers[message]){
 console.log(Object.keys(connectedUsers[message]).length, 'length')
 
 
-connectedUsers[message][Object.keys(connectedUsers[message]).length] = {'id': data.id, 'socketid': data.socketid}
+  const found = null
+for (const innerKey in  connectedUsers[message]) {
+      if ( connectedUsers[message][innerKey].socketid === data.id) {
 
+            found = data.id
+      }
+
+    }
+
+    if(!found){
+
+      connectedUsers[message][Object.keys(connectedUsers[message]).length] = {'id': data.id, 'socketid': data.socketid}
+
+    }
 
 
 
@@ -181,6 +193,28 @@ redisClient.on('disconnect', function(){
   redisClient.quit();
 });
 
+redisClient.subscribe('ClassSchedule');
+
+redisClient.on('message', function(channel, message){
+
+
+  if(channel === 'ClassSchedule'){
+
+	io.emit('schedule', message)
+
+    console.log('message', message)
+  }
+});
+
+redisClient.on('disconnect', function(){
+
+
+
+  redisClient.quit();
+});
+
+
+
 
 
 
@@ -204,49 +238,29 @@ socket.room = mySocketId
 
 socket.on('typingStatus', function(latestmessage){
 
-  var clientsConnected = 0
 
- var connected = false
-
- var notInRoom = true
+  for (const parentKey in connectedUsers) {
 
 
-   if(defaultRoom == socket.room){
-
- notInRoom = false
-
-     io.in(defaultRoom).clients(function (error, clients) {
-                   if (error) { throw error; }
+      for (const innerKey in  connectedUsers[parentKey]) {
 
 
-                   clientsConnected = clients.length
-   if(clients.length<3){
+          if ( connectedUsers[parentKey][innerKey].id === latestmessage.secondUser.toString()) {
+
+             io.to(connectedUsers[parentKey][innerKey].socketid).emit('myTypingStatus', {friend: latestmessage.friend, bonusdata: latestmessage.bonusdata, currentUser: latestmessage.currentUserName, messageType:latestmessage.messageType, isTyping:latestmessage.isTyping, currentUserAvatar: latestmessage.currentUserAvatar})
 
 
 
-                   for(var i =0; i<clients.length; i++){
-
-                     if(clients[i] != socket.id){
-                         connected = true
-                       io.to(clients[i]).emit('myTypingStatus', {friend: latestmessage.friend, clientsData: clients, bonusdata: latestmessage.bonusdata, isConnected:connected, currentUser: latestmessage.currentUserName, messageType:latestmessage.messageType, isTyping:latestmessage.isTyping, currentUserAvatar: latestmessage.currentUserAvatar})
+          }
 
 
-                     }
-
-                   }
+      }
+  }
 
 
 
-                 }
-
-               })
-
-
-             }
 
 })
-
-
 
 socket.on('latestMessage', function(latestmessage){
 
@@ -424,25 +438,57 @@ socket.on('disconnect', function(){
 console.log('disconnected', socket.id)
 
 
-const parentId = null
-const innerId = null
-// suppose you want to find the parent+inner ids for the object that has  the 'kmleHjGhwNy3SkwxAAAG' generatedid
-for (const parentKey in connectedUsers) {
 
 
+    for (const parentKey in connectedUsers) {
     for (const innerKey in  connectedUsers[parentKey]) {
+        if ( connectedUsers[parentKey][innerKey].socketid === socket.id) {
 
 
-        if ( connectedUsers[parentKey][innerKey].socketid ===  socket.id) {
+
+                      if( Object.keys(connectedUsers[parentKey]).length <=1){
+
+                        const userId = connectedUsers[parentKey][innerKey].id
+
+                                      io.sockets.emit('userDisconnected', userId)
 
 
-          io.sockets.emit('userDisconnected', connectedUsers[parentKey][innerKey].id)
+                          delete connectedUsers[parentKey][innerKey];
+                          delete connectedUsers[parentKey];
+
+
+
+
+
+
+
+
+                      }
+
+                      else{
+
+                          const userId = connectedUsers[parentKey][innerKey].id
+                        io.sockets.emit('userDisconnected', userId)
+
+
+                            delete connectedUsers[parentKey][innerKey];
+                      }
+
+
+
+
+
 
         }
-
-      }
-
     }
+}
+
+
+
+
+console.log('latestUsers', connectedUsers)
+
+
 
 
 

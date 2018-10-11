@@ -1299,7 +1299,6 @@ var vm = this
 
        vm.tempMessage = vm.message
 
-       vm.myMessages.push({'avatar' : vm.currentUserAvatar, 'name': vm.currentUserName, 'message': vm.message, 'type': 'message'})
 
 
 
@@ -1314,14 +1313,15 @@ var vm = this
          vm.formData.append('message', vm.tempMessage)
 
          axios.post('api/saveMessage', vm.formData).then(function(response){
-
-
+	
+	if(vm.message.trim()){
+       vm.myMessages.push({'avatar' : vm.currentUserAvatar, 'name': vm.currentUserName, 'message': vm.message, 'type': 'message'})		
 
        vm.$socket.emit('latestMessage', {message: vm.message, friend: vm.getUserSock, messagedata: response.data.id, bonusdata: vm.$socket.id, secondUser: vm.secondUser, myId: vm.currentUserId, currentUserName: vm.currentUserName, messageType: response.data.messageType, currentUserAvatar: vm.currentUserAvatar, messageDate: response.data.messageDate, type: response.data.messageType})
 
 
        vm.message = ''
-
+}
 
          }).catch(function(error){
 
