@@ -200,9 +200,9 @@ redisClient.on('message', function(channel, message){
 
   if(channel === 'ClassSchedule'){
 
-	io.emit('schedule', message)
+	io.emit('schedule', JSON.parse( message))
 
-    console.log('message', message)
+    console.log('message',JSON.parse( message))
   }
 });
 

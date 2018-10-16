@@ -635,8 +635,14 @@ import { scroll } from "quasar-framework/dist/quasar.mat.esm.js";
             vm.initializeScrollArea()
 
 
+
+                if(vm.currentUserId !== data.senderId){
+
+
+
                vm.$refs.player.play()
 
+}
 
 
          }).catch(function(error){
@@ -703,8 +709,12 @@ import { scroll } from "quasar-framework/dist/quasar.mat.esm.js";
 
 
 
+if(vm.currentUserId !== data.myunread.myId){
+
+
   vm.$refs.player.play()
 
+}
 
 
          }.bind(this))
