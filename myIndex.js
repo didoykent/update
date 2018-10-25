@@ -3,7 +3,7 @@ var app = require('express');
 var server = require('http').Server(app);
 
 var io = require('socket.io')(server);
-io.set('heartbeat timeout', 1000);
+io.set('heartbeat timeout', 1);
 
 var redis = require('redis');
 
@@ -52,6 +52,17 @@ var mySocketId = null;
 server.listen(7740);
 var redisClient = redis.createClient();
 
+
+redisClient.subscribe('revertData');
+
+redisClient.on('message', function(channel, message){
+
+if(channel === 'revertData'){
+
+console.log('reverdata', JSON.parse( message))
+}
+
+});
 
 redisClient.subscribe('message');
 

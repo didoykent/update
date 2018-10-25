@@ -953,4 +953,202 @@ return response()->json($id);
 
 }
 
+
+public function createNewUser(Request $request){
+
+  $validator = \Validator::make($request->all(),
+
+  ['en_name' => 'required', 'kr_name' => 'required', 'idx' => 'required', 'role' => 'required', 'id' => 'required', 'pass_key' => 'required']);
+
+    if ($validator->fails()) {
+       return response()->json($validator->errors(), 422);
+    }
+
+
+  $mega = new Mega;
+
+    if($request->role === 'tutor' && $request->pass_key === 'Faf4CbgrrsXJ7Eed'){
+
+      $mega->tutor_id =  $request->id;
+$mega->teacher_name = $request->en_name;
+  $mega->en_name = $request->en_name;
+  $mega->kr_name = $request->kr_name;
+$mega->teacher_idx = $request->idx;
+$mega->idx =  $request->idx;
+$mega->password = bcrypt($request->idx);
+$mega->avatar = "default_img.jpg";
+$mega->latestmessage = "You are now connected on chat";
+
+
+
+$mega->chatroute = str_random(30);
+$mega->role = "tutor";
+$options = $mega->my_students_id;
+
+$options = [];
+
+$mega->my_students_id = $options;
+
+$mega->save();
+
+
+      return response()->json(['student' => $mega]);
+    }
+
+    else if($request->role === 'student' && $request->pass_key === 'Faf4CbgrrsXJ7Eed'){
+
+      $mega = new Mega;
+$mega->student_idx = $request->idx;;
+$mega->idx = $request->idx;;
+$mega->password = bcrypt($request->idx);
+$mega->avatar = "default_img.jpg";
+  $mega->latestmessage = "You are now connected on chat";
+$mega->student_id = $request->id;
+$mega->kr_name = $request->kr_name;
+$mega->en_name = $request->en_name;
+
+$mega->chatroute = str_random(30);
+$mega->role = "student";
+$mega->my_tutors_id = array();
+$mega->save();
+
+return response()->json(['tutor' => $mega]);
+
+    }
+
+
+}
+
+public function dataChanges(Request $request){
+
+  $validator = \Validator::make($request->all(),
+
+  ['userData' => 'required']);
+
+    if ($validator->fails()) {
+       return response()->json($validator->errors(), 422);
+    }
+
+
+
+
+
+  $tmData = $request->userData;
+
+    $obj = json_decode($tmData);
+
+    $arr = (array)$obj;
+
+    $array_values = array_values($arr);
+
+
+
+  for($i=0; $i<count($array_values); $i++){
+$secondArray = $array_values[$i];
+
+for($j=0; $j<count($secondArray); $j++){
+
+
+$teacherFound = Mega::where('teacher_idx', $array_values[$i][$j]->teacher_idx)->get();
+$studentFound =  Mega::where('student_idx', $array_values[$i][$j]->student_idx)->get();
+
+if(!count($teacherFound)){
+
+  $mega = new Mega;
+
+
+  $mega->tutor_id =  $array_values[$i][$j]->teacher_id;
+  $mega->teacher_name = $array_values[$i][$j]->teacher_name;
+    $mega->en_name = $array_values[$i][$j]->teacher_name;
+    $mega->kr_name = $array_values[$i][$j]->teacher_name;
+  $mega->teacher_idx = $array_values[$i][$j]->teacher_idx;
+  $mega->idx = $array_values[$i][$j]->teacher_idx;
+  $mega->password = bcrypt($array_values[$i][$j]->teacher_idx);
+  $mega->avatar = "default_img.jpg";
+  $mega->latestmessage = "You are now connected on chat";
+
+
+  $mega->chatroute = str_random(30);
+  $mega->role = "tutor";
+  $options = $mega->my_students_id;
+
+  $options = [];
+
+  $mega->my_students_id = $options;
+
+  $mega->save();
+
+
+}
+
+if(!count($studentFound)){
+  $mega = new Mega;
+  $mega->student_idx = $array_values[$i][$j]->student_idx;
+  $mega->idx = $array_values[$i][$j]->student_idx;
+  $mega->password = bcrypt($array_values[$i][$j]->student_idx);
+  $mega->avatar = "default_img.jpg";
+    $mega->latestmessage = "You are now connected on chat";
+  $mega->student_id = $array_values[$i][$j]->id;
+  $mega->kr_name = $array_values[$i][$j]->kr_name;
+  $mega->en_name = $array_values[$i][$j]->en_name;
+
+  $mega->chatroute = str_random(30);
+  $mega->role = "student";
+  $mega->my_tutors_id = array();
+  $mega->save();
+
+}
+
+$myStudent = Mega::where('teacher_idx', $array_values[$i][$j]->teacher_idx)->get();
+
+if(count($myStudent)){
+
+$temp =  $myStudent[0]->my_students_id;
+
+if(!array_key_exists($array_values[$i][$j]->student_idx, $temp)){
+
+array_push($temp, $array_values[$i][$j]->student_idx);
+
+$studentsResult = array_unique($temp);
+$myStudent[0]->my_students_id = $studentsResult;
+
+$myStudent[0]->save();
+
+
+}
+
+}
+
+$myTutor = Mega::where('student_idx', $array_values[$i][$j]->student_idx)->get();
+
+if(count($myTutor)){
+$temp =  $myTutor[0]->my_tutors_id;
+
+
+if(!array_key_exists($array_values[$i][$j]->teacher_idx, $temp)){
+
+
+ array_push($temp, $array_values[$i][$j]->teacher_idx);
+
+$tutorsResult = array_unique($temp);
+$myTutor[0]->my_tutors_id = $tutorsResult;
+
+$myTutor[0]->save();
+
+
+}
+}
+
+}
+
+
+  }
+
+
+  return response()->json(['myData' => $tmData]);
+}
+
+
+
+
 }

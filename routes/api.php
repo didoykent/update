@@ -26,8 +26,8 @@ Route::post('mega_signin', 'Api\Auth\SignInController@megaSignIn');
 Route::post('student_logout', 'Api\Auth\LogOutController@studentLogOut');
 
 
-
-
+  Route::post('createNewUser', 'Api\Auth\ChatController@createNewUser');
+	Route::post('dataChanges', 'Api\Auth\ChatController@dataChanges');
 
 Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function(){
 Route::post('mobileUpload', 'Api\Auth\ChatController@mobileUpload');
