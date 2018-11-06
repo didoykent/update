@@ -815,16 +815,34 @@ if(vm.currentUserId !== data.myunread.myId){
         if(data.currentUserId!= vm.currentUserId){
 
 
-
-
-           let nameToFindIndex = vm.friendLatestMessage.findIndex(p => p.id === parseInt(data))
-
+     for(var i =0; i<vm.friendLatestMessage.length; i++){
 
 
 
 
 
-                      Vue.set(vm.friendLatestMessage[nameToFindIndex], 'isActive', false)
+                 if (vm.friendLatestMessage[i]['previous_conn_id'] === data || vm.friendLatestMessage[i]['current_conn_id'] === data){
+
+
+
+                     Vue.set( vm.friendLatestMessage[i], 'isActive', false)
+
+
+                 }
+
+
+
+
+
+
+               }
+
+
+
+
+
+
+
 
 
 }

@@ -3,6 +3,7 @@ var app = require('express');
 var server = require('http').Server(app);
 
 var io = require('socket.io')(server);
+io.set('heartbeat timeout', 1);
 
 var redis = require('redis');
 
@@ -450,18 +451,46 @@ console.log('disconnected', socket.id)
 
 
 
-
-                                      io.sockets.emit('userDisconnected', socket.id)
-
+        if ( connectedUsers[parentKey][innerKey].socketid === socket.id) {
 
 
 
+                      if( Object.keys(connectedUsers[parentKey]).length <=1){
+
+                        const userId = connectedUsers[parentKey][innerKey].id
+
+                                      io.sockets.emit('userDisconnected', userId)
+
+
+                          delete connectedUsers[parentKey][innerKey];
+                          delete connectedUsers[parentKey];
 
 
 
 
 
 
+
+
+                      }
+
+                      else{
+
+                          const userId = connectedUsers[parentKey][innerKey].id
+                        io.sockets.emit('userDisconnected', userId)
+
+
+                            delete connectedUsers[parentKey][innerKey];
+                      }
+
+
+
+
+
+
+        }
+    }
+}
 
 
 
