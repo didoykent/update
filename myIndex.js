@@ -126,16 +126,16 @@ if(connectedUsers[message]){
 console.log(Object.keys(connectedUsers[message]).length, 'length')
 
 
-  const found = null
+  var found = null
 for (const innerKey in  connectedUsers[message]) {
-      if ( connectedUsers[message][innerKey].socketid === data.id) {
+      if ( connectedUsers[message][innerKey].socketid === data.socketid) {
 
-            found = data.id
+            found = data.socketid
       }
 
     }
 
-    if(!found){
+    if(found !== data.socketid){
 
       connectedUsers[message][Object.keys(connectedUsers[message]).length] = {'id': data.id, 'socketid': data.socketid}
 
