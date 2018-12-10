@@ -127,14 +127,26 @@ console.log(Object.keys(connectedUsers[message]).length, 'length')
 
 
   var found = null
-for (const innerKey in  connectedUsers[message]) {
-      if ( connectedUsers[message][innerKey].socketid === data.socketid) {
 
-            found = data.socketid
+const parentId = null
+const innerId = null
+// suppose you want to find the parent+inner ids for the object that has  the 'kmleHjGhwNy3SkwxAAAG' generatedid
+for (const parentKey in connectedUsers) {
+
+
+    for (const innerKey in  connectedUsers[parentKey]) {
+
+
+        if ( connectedUsers[parentKey][innerKey].socketid ===  data.socketid) {
+
+
+          found = data.socketid
+
+        }
+
       }
 
     }
-
     if(found !== data.socketid){
 
       connectedUsers[message][Object.keys(connectedUsers[message]).length] = {'id': data.id, 'socketid': data.socketid}
@@ -451,7 +463,25 @@ console.log('disconnected', socket.id)
 
 
 
-                                      io.sockets.emit('userDisconnected', socket.id)
+const parentId = null
+const innerId = null
+// suppose you want to find the parent+inner ids for the object that has  the 'kmleHjGhwNy3SkwxAAAG' generatedid
+for (const parentKey in connectedUsers) {
+
+
+    for (const innerKey in  connectedUsers[parentKey]) {
+
+
+        if ( connectedUsers[parentKey][innerKey].socketid === socket.id) {
+
+
+          io.sockets.emit('userDisconnected', {currentUserId: connectedUsers[parentKey][innerKey].id})
+
+        }
+
+      }
+
+    }
 
 
 

@@ -815,27 +815,38 @@ if(vm.currentUserId !== data.myunread.myId){
         if(data.currentUserId!= vm.currentUserId){
 
 
-     for(var i =0; i<vm.friendLatestMessage.length; i++){
+
+
+             for(var i =0; i<vm.friendLatestMessage.length; i++){
 
 
 
 
 
-                 if (vm.friendLatestMessage[i]['previous_conn_id'] === data || vm.friendLatestMessage[i]['current_conn_id'] === data){
+               if (vm.friendLatestMessage[i]['id'] === parseInt(data.currentUserId)){
 
 
 
-                     Vue.set( vm.friendLatestMessage[i], 'isActive', false)
-
-
-                 }
-
-
-
-
+                   Vue.set( vm.friendLatestMessage[i], 'isActive', false)
 
 
                }
+
+
+
+       }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
