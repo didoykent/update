@@ -919,7 +919,7 @@ public function write(Request $request){
   $writeData['s_id'] = $request->s_id;
   $writeData['class_date'] = $request->class_date;
   $writeData['class_time'] = $request->class_time;
-  $writeData['tutor_name'] = $request->tutor_name;
+  $writeData['tutor_name'] =  utf8_encode($request->tutor_name);
   $writeData['epoch'] = $request->epoch;
   $writeData['idx'] = $request->idx;
 

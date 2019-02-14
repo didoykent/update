@@ -68,7 +68,9 @@ redisClient.subscribe('message');
 
 redisClient.on('message', function(channel, message){
 
-if(message.trim() && channel === 'message'){
+
+if( message.trim() && channel === 'message'){
+
 
 io.emit('evaluation',  message);
 
