@@ -22,23 +22,7 @@ var connectedUsers = {
 
 
 
-                      async function userDisconnected(userId){
-
-
-                       try {
-                         const res = await axios.post(
-                           "http://localhost:8000/api/updateStatus", {
-                         id: userId,
-                         additionalData: 'wNuhD8NwkeXYqBr4CWo2'
-
-                       });
-
-
-                       } catch (error) {
-                         console.log(error)
-                       }
-
-                     }
+                      
 
 var mySocketId = null;
 
@@ -58,7 +42,6 @@ redisClient.on('message', function(channel, message){
 
 if(channel === 'revertData'){
 
-console.log('reverdata', JSON.parse( message))
 }
 
 });
@@ -78,7 +61,6 @@ io.emit('evaluation',  message);
 
 
 
-console.log(message)
 });
 
 redisClient.on('disconnect', function(){
@@ -119,13 +101,12 @@ var message2 = '2'
 
 if(connectedUsers[message]){
 
-  if(Object.keys(connectedUsers[message]).length >=20){
+  if(Object.keys(connectedUsers[message]).length >=5){
 
     connectedUsers[message] = {};
 
   }
 
-console.log(Object.keys(connectedUsers[message]).length, 'length')
 
 
   var found = null
@@ -195,7 +176,6 @@ connectedUsers[message][0]  = {'id': data.id, 'socketid': data.socketid}
 
 
 
-console.log(connectedUsers)
 
 
 }
@@ -288,54 +268,14 @@ socket.on('typingStatus', function(latestmessage){
 
 socket.on('latestMessage', function(latestmessage){
 
-
 io.sockets.emit('chat', {name: latestmessage.currentUserName, message: latestmessage.message, idx: latestmessage.friend['idx']})
 
+socket.broadcast.emit('sendMessage', {message: latestmessage.message, friend: latestmessage.friend, messagedata: latestmessage.messagedata, bonusdata: latestmessage.bonusdata, currentUser: latestmessage.currentUserName, messageType:latestmessage.messageType, currentUserAvatar:latestmessage.currentUserAvatar, settings: 'message', senderId: latestmessage.myId})
+io.sockets.emit('messageNotification', {bonusdata: latestmessage.myId, myunread: latestmessage})
 
 
 
-
-  const parentId = null
-  const innerId = null
-  // suppose you want to find the parent+inner ids for the object that has  the 'kmleHjGhwNy3SkwxAAAG' generatedid
-  for (const parentKey in connectedUsers) {
-
-
-      for (const innerKey in  connectedUsers[parentKey]) {
-
-
-          if ( connectedUsers[parentKey][innerKey].id === latestmessage.secondUser.toString()) {
-
-
-            io.to(connectedUsers[parentKey][innerKey].socketid).emit('sendMessage', {message: latestmessage.message, friend: latestmessage.friend, messagedata: latestmessage.messagedata, bonusdata: latestmessage.bonusdata, currentUser: latestmessage.currentUserName, messageType:latestmessage.messageType, currentUserAvatar:latestmessage.currentUserAvatar, settings: 'message', senderId: latestmessage.myId, currentUserSocket: connectedUsers[parentKey][innerKey].socketid})
-            io.to(connectedUsers[parentKey][innerKey].socketid).emit('messageNotification', {bonusdata: latestmessage.myId, myunread: latestmessage})
-
-
-          }
-
-
-          if ( connectedUsers[parentKey][innerKey].id ===  latestmessage.myId.toString()) {
-
-
-
-                socket.broadcast.to(connectedUsers[parentKey][innerKey].socketid).emit('sendMessage', {message: latestmessage.message, friend: latestmessage.friend, messagedata: latestmessage.messagedata, bonusdata: latestmessage.bonusdata, currentUser: latestmessage.currentUserName, messageType:latestmessage.messageType, currentUserAvatar:latestmessage.currentUserAvatar, settings: 'message', senderId: latestmessage.myId, currentUserSocket: connectedUsers[parentKey][innerKey].socketid})
-            io.to(connectedUsers[parentKey][innerKey].socketid).emit('messageNotification', {bonusdata: latestmessage.myId, myunread: latestmessage})
-              }
-      }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
@@ -498,7 +438,6 @@ for (const parentKey in connectedUsers) {
 
 
 
-console.log('latestUsers', connectedUsers)
 
 
 
@@ -519,3 +458,4 @@ console.log('latestUsers', connectedUsers)
 
 
 });
+

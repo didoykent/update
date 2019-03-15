@@ -42,7 +42,7 @@ Route::post('student_signup', 'Api\Auth\SignUpController@studentSignUp');
   Route::post('getMessages', 'Api\Auth\ChatController@getMessages');
   Route::post('initializeData', 'Api\Auth\ChatController@initializeData');
   Route::post('writeTest', 'Api\Auth\ChatController@write');
-
+  Route::post('audio_recording', 'Api\RecordingController@getFileRecording');
 
 
 });

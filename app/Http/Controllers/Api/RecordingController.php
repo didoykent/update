@@ -9,19 +9,52 @@ use App\Student;
 
 class RecordingController extends Controller
 {
+  function NewGuid() {
+      $s = strtoupper(md5(uniqid(rand(),true)));
+      $guidText =
+          substr($s,0,8) . '-' .
+          substr($s,8,4) . '-' .
+          substr($s,12,4). '-' .
+          substr($s,16,4). '-' .
+          substr($s,20);
+      return $guidText;
+  }
+
     public function getFileRecording(Request $request){
 
 
 
-    if($request->file('file')){
+       $validator = \Validator::make($request->all(),
 
-   Storage::putFile('public', $request->file('file'));
+      ['file' => 'required',
+      'studentName' => 'required']);
 
-   return response()->json(['Success' => true]);
+        if ($validator->fails()) {
+           return response()->json($validator->errors(), 422);
+        }
+
+
+
+      $file =  $request->file('file');
+
+    if($file){
+
+
+
+
+        $name = $this->NewGuid().'.'.$file->getClientOriginalExtension();
+   Storage::putFileAs('public', $file, $name);
+
+   return response()->json(['Success' =>  true]);
     }
 
 
   }
+
+
+
+
+
 
 public function getData(Request $request){
 

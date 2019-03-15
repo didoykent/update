@@ -577,7 +577,9 @@ import { scroll } from "quasar-framework/dist/quasar.mat.esm.js";
 
 
 
-       var vm= this
+       var vm = this
+
+
 
 
        vm.$socket.on('myTypingStatus', function(data){
@@ -660,7 +662,6 @@ import { scroll } from "quasar-framework/dist/quasar.mat.esm.js";
          }.bind(this))
 
          vm.$socket.on('messageNotification', function(data){
-
 
 
 
