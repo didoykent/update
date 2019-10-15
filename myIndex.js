@@ -217,7 +217,25 @@ redisClient.on('disconnect', function(){
   redisClient.quit();
 });
 
+redisClient.subscribe('Preview');
 
+redisClient.on('message', function(channel, message){
+
+
+  if(channel === 'Preview'){
+
+
+  	io.emit('preview', message)
+    console.log('preview', message)
+  }
+});
+
+redisClient.on('disconnect', function(){
+
+
+
+  redisClient.quit();
+});
 
 
 

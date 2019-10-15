@@ -36,7 +36,7 @@
           </q-item-tile>
         </q-item-main>
 
-        <q-uploader
+  <q-uploader
 
 
                class="hidden"
@@ -56,6 +56,7 @@
 
                method="POST"
              ></q-uploader>
+
         <q-item-side right>
                 <q-btn flat round dense icon="more_vert" text-color="	#F0F8FF">
                   <q-popover>
@@ -252,7 +253,6 @@ allowfullscreen
 
         @keyup.enter="sendMessage()"
         :after="[
-          { icon: 'cloud upload', handler() { upload() } },
           { icon: 'send', handler() { sendMessage() } }
         ]"
      >
@@ -268,27 +268,7 @@ allowfullscreen
 
    </q-input>
 
-     <q-uploader
-
-            multiple
-            class="hidden"
-            ref="uploader"
-            url="api/uploadFile"
-            :headers="{'Authorization': 'Bearer '+ token}"
-            @uploaded="onUpload"
-            @add="added"
-            @finish = "uploadFinish"
-
-
-            :additional-fields = "[{'name': 'secondUser', 'value' : secondUser }]"
-
-
-            name = "file"
-            extensions = ".jpeg, .png, .jpg, .gif, .svg, .3g2, .3gp, .3gpp, .asf, .avi, .dat, .divx, .dv, .f4v, .flv, .m2ts, .m4v, .mkv, .mod, .mov, .mp4, .mpe, .mpeg, .mpeg4, .mpg, .mts, .nsv, .ogm, .ogv, .qt, .tod, .ts, .vob, .wmv, .mp3"
-
-            method="POST"
-          ></q-uploader>
-
+     
 
 
 </div>

@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-          'App\Console\Commands\ClassCommand'
+          'App\Console\Commands\ClassCommand',
+          'App\Console\Commands\PreviewCommand'
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
 $schedule->command('command:Class')->everyMinute();
+//$schedule->command('command:Preview')->everyMinute();
     }
 
     /**
